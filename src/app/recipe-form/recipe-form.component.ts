@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Ingredient} from "../models/Ingredient";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
   selector: 'app-recipe-form',
@@ -6,19 +9,52 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./recipe-form.component.css']
 })
 export class RecipeFormComponent implements OnInit {
+  recipeForm!: FormGroup;
+  ingredientForm!: FormGroup;
   currentStep: number;
   allIngredients: any;
 
-  constructor() {
+  constructor(private fb: FormBuilder, private message: NzMessageService) {
     this.currentStep = 0;
     this.allIngredients = [];
   }
 
   ngOnInit(): void {
+    this.recipeForm = this.fb.group({
+      recipeName: [null, Validators.required],
+      ingredients: [null]
+
+    })
+
+    this.ingredientForm = this.fb.group({
+      ingredientName: [null, Validators.required],
+      ingredientAmount: [null, Validators.required],
+      ingredientUnit: ['g', Validators.required]
+    })
   }
 
-  addIngredient(ingredient: any): void {
+  addIngredient(): void {
+    if (this.ingredientForm.valid) {
+      this.allIngredients.push(
+        new Ingredient(
+          this.ingredientForm.value.ingredientName,
+          this.ingredientForm.value.ingredientAmount,
+          this.ingredientForm.value.ingredientUnit,
+          false));
+      this.ingredientForm.reset();
+    } else {
+      this.message.error('Beim hinzufügen deiner Zutat ist ein Problem aufgetreten.');
+    }
 
+  }
+
+  submitRecipe(): void {
+    this.recipeForm.value.ingredients = this.allIngredients;
+    if (this.recipeForm.valid) {
+      // Send Request
+    } else {
+      this.message.error('Das hat leider nicht funktioniert.')
+    }
   }
 
 }

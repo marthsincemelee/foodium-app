@@ -44,7 +44,8 @@ registerLocaleData(de);
     AppBarComponent,
     HomeComponent,
     RecipeFormComponent,
-    RecipeCardComponent
+    RecipeCardComponent,
+    RecipeListComponent
   ],
   imports: [
     BrowserModule,
@@ -66,8 +67,7 @@ registerLocaleData(de);
     RouterModule,
     NzCardModule,
     NzAnchorModule,
-    NzListModule,
-    NzSpaceModule
+    NzListModule
   ],
   providers: [{provide: NZ_I18N, useValue: de_DE}],
   bootstrap: [AppComponent]

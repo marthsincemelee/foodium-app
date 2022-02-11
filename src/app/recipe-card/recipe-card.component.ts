@@ -14,11 +14,7 @@ export class RecipeCardComponent implements OnInit {
   @Input() recipe: Recipe;
 
   constructor() {
-    this.recipe = new Recipe("Reis mit Ei", "https://google.com",
-      new Array<Ingredient>(
-        new Ingredient("Ei",1,UnitType.piece, false),
-        new Ingredient("Reis",5,UnitType.kg, false),
-      ), false);
+    this.recipe = new Recipe("No recipe found", "https://www.eggs.ca", new Array<Ingredient>(), false)
   }
 
   GetUnitTypeAsString(type: UnitType){

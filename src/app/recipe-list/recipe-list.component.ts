@@ -9,10 +9,12 @@ import {Recipe} from "../models/Recipe";
 })
 export class RecipeListComponent implements OnInit {
 
-  recipeList: Array<Recipe>
-
   constructor(public recipeService: RecipeService) {
-    this.recipeList = new Array<Recipe>()
+    this.regenerateWeeklyList();
+  }
+
+  regenerateWeeklyList() {
+    this.recipeService.generateWeeklyRecipes();
   }
 
   ngOnInit(): void {

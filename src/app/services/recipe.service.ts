@@ -20,8 +20,17 @@ export class RecipeService {
       })
   }
 
-  getFavouriteRecipes() {
+  generateWeeklyRecipes() {
+    this.recipes = new Array<Recipe>();
+    let copyOfRecipes = new Array<Recipe>();
+    copyOfRecipes = copyOfRecipes.concat(this.userService.user.recipes);
 
+    for(let i = 0; i < 7; i++){
+      let random = Math.floor(Math.random() * copyOfRecipes.length);
+
+      this.recipes.push(copyOfRecipes[random]);
+      copyOfRecipes.splice(random, 1);
+    }
   }
 
   addFavouriteRecipeToUser(recipe: Recipe){

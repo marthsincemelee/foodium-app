@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import {Recipe} from "../models/Recipe";
 import {Ingredient} from "../models/Ingredient";
 import {UnitType} from "../models/UnitType";
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +48,16 @@ export class RecipeService {
         ), false));
   }
 
+  AddRecipeToDatabase(recipe : Recipe){
+    this.client.post(environment.baseUrl + "/recipes", {recipe: recipe})
+      .subscribe(
+        {
+          next: (next) => console.log(next),
+          error: (err) => console.log(err)
+        }
+      );
+  }
 
-  constructor() { }
+
+  constructor(private client:HttpClient) { }
 }

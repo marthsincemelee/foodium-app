@@ -31,6 +31,7 @@ import {RecipeFormComponent} from './recipe-form/recipe-form.component';
 import {NzSelectModule} from 'ng-zorro-antd/select';
 import {NzStepsModule} from 'ng-zorro-antd/steps';
 import { NzCardModule } from 'ng-zorro-antd/card';
+import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 
 
@@ -40,10 +41,12 @@ registerLocaleData(de);
   declarations: [
     AppComponent,
     LoginComponent,
+    RecipeCardComponent,
     AppBarComponent,
     HomeComponent,
     RecipeFormComponent,
-    RecipeCardComponent
+    RecipeCardComponent,
+    RecipeListComponent
   ],
   imports: [
     BrowserModule,

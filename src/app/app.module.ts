@@ -20,6 +20,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import {RouterModule} from "@angular/router";
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { AppBarComponent } from './app-bar/app-bar.component';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { HomeComponent } from './home/home.component';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { RecipeFormComponent } from './recipe-form/recipe-form.component';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzStepsModule } from 'ng-zorro-antd/steps';
 
 
 registerLocaleData(de);
@@ -27,7 +34,10 @@ registerLocaleData(de);
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    AppBarComponent,
+    HomeComponent,
+    RecipeFormComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +46,11 @@ registerLocaleData(de);
     NzTypographyModule,
     NzButtonModule,
     NzPageHeaderModule,
+    NzDividerModule,
     NzGridModule,
+    NzSelectModule,
+    NzStepsModule,
+    NzIconModule,
     NzInputModule,
     NzFormModule,
     HttpClientModule,

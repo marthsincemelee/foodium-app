@@ -4,6 +4,7 @@ import {Ingredient} from "../models/Ingredient";
 import {UnitType} from "../models/UnitType";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
+import {UserService} from "../user.service";
 
 @Injectable({
   providedIn: 'root'
@@ -48,8 +49,13 @@ export class RecipeService {
         ), false));
   }
 
-  AddRecipeToDatabase(recipe : Recipe){
-    this.client.post(environment.baseUrl + "/recipes", {recipe: recipe})
+  addRecipeToDatabase(recipe : Recipe){
+    console.log("Bearer " + this.userService.jwt);
+    console.log(recipe)
+    this.client.post(
+      environment.dataUrl + "/recipes",
+      recipe,
+      {headers: {Authorization: "Bearer " + this.userService.jwt }})
       .subscribe(
         {
           next: (next) => console.log(next),
@@ -59,5 +65,5 @@ export class RecipeService {
   }
 
 
-  constructor(private client:HttpClient) { }
+  constructor(private client:HttpClient, private userService: UserService) { }
 }

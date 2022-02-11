@@ -1,0 +1,50 @@
+<form nz-form>
+  <nz-form-item>
+    <h4 nz-typography style="text-align: center">Hier kannst du ein neues Rezept erstellen.</h4>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <input nz-input name="recipeName" type="text" id="recipeName" placeholder="Name des Rezepts">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-divider nzType="horizontal" nzText="Zutaten"></nz-divider>
+  <nz-form-item>
+    <nz-form-control>
+      <input nz-input name="recipeName" type="text" id="ingredients" placeholder="Zutaten">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-input-group [nzAddOnAfter]="addOnAfterTemplate">
+      <input type="text" nz-input name="something" placeholder="Menge"/>
+    </nz-input-group>
+  </nz-form-item>
+  <nz-form-item>
+    <button nz-button nzType="primary">Zutat hinzufügen</button>
+  </nz-form-item>
+  <div *ngIf="allIngredients.length > 0">
+    <nz-divider nzType="horizontal"></nz-divider>
+    <ul>
+      <li *ngFor="let ingredient of this.allIngredients">
+        <p nz-typography>{{ingredient.amount}}{{ingredient.unit}} {{ingredient.name}} <button nz-button nzSize="small" nzDanger nzType="primary" nzShape="circle"><i nz-icon nzType="close-circle"></i></button></p>
+      </li>
+    </ul>
+  </div>
+  <nz-divider nzType="horizontal"></nz-divider>
+  <nz-form-item>
+    <button nz-button nzType="primary" nzBlock>Rezept hinzufügen</button>
+  </nz-form-item>
+</form>
+
+<div>
+  <ng-template #addOnAfterTemplate>
+    <nz-select [ngModel]="'g'">
+      <nz-option nzLabel="g" nzValue="g"></nz-option>
+      <nz-option nzLabel="ml" nzValue="ml"></nz-option>
+      <nz-option nzLabel="tl" nzValue="tl"></nz-option>
+      <nz-option nzLabel="el" nzValue="el"></nz-option>
+    </nz-select>
+  </ng-template>
+</div>
+
+
+

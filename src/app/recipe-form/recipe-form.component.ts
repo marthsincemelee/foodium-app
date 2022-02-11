@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Ingredient} from "../models/Ingredient";
 import {NzMessageService} from "ng-zorro-antd/message";
+import {RecipeService} from "../services/recipe.service";
+import {Recipe} from "../models/Recipe";
 
 @Component({
   selector: 'app-recipe-form',
@@ -14,7 +16,7 @@ export class RecipeFormComponent implements OnInit {
   currentStep: number;
   allIngredients: any;
 
-  constructor(private fb: FormBuilder, private message: NzMessageService) {
+  constructor(private fb: FormBuilder, private message: NzMessageService, private recipeService:RecipeService) {
     this.currentStep = 0;
     this.allIngredients = [];
   }
@@ -51,7 +53,7 @@ export class RecipeFormComponent implements OnInit {
   submitRecipe(): void {
     this.recipeForm.value.ingredients = this.allIngredients;
     if (this.recipeForm.valid) {
-      // Send Request
+      this.recipeService.addRecipeToDatabase(new Recipe(this.recipeForm.value.recipeName, "", this.recipeForm.value.ingredients, false));
     } else {
       this.message.error('Das hat leider nicht funktioniert.')
     }

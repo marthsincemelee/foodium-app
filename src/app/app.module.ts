@@ -20,6 +20,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import {RouterModule} from "@angular/router";
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { RecipeCardComponent } from './recipe-card/recipe-card.component';
+import { NzCardModule } from "ng-zorro-antd/card";
+import { NzAnchorModule } from "ng-zorro-antd/anchor";
+import {NzListModule} from "ng-zorro-antd/list";
 
 
 registerLocaleData(de);
@@ -27,7 +31,8 @@ registerLocaleData(de);
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    RecipeCardComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,10 @@ registerLocaleData(de);
     HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
+    NzCardModule,
+    NzAnchorModule,
+    NzListModule
   ],
   providers: [{ provide: NZ_I18N, useValue: de_DE }],
   bootstrap: [AppComponent]

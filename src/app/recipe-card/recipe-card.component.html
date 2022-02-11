@@ -1,0 +1,22 @@
+<div>
+  <nz-card nzTitle="{{recipe.name}}">
+    <span nz-typography>
+      Link zum Rezept:
+        <a href="{{recipe.recipe_link}}" target="_blank">
+          Click here
+          <Link />
+        </a>
+      </span>
+
+    <nz-list nzSize="small" style="margin-top: 2vh">
+      <nz-list-header>Inhaltsliste</nz-list-header>
+      <nz-list-item *ngFor="let ingredient of recipe.ingredients">
+        <span>
+          <span nz-typography>{{ingredient.amount}}</span>
+          <span nz-typography>{{GetUnitTypeAsString(ingredient.unit)}}</span>
+          <span nz-typography>{{ingredient.name}}</span>
+        </span>
+      </nz-list-item>
+    </nz-list>
+  </nz-card>
+</div>

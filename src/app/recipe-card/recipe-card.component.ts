@@ -12,9 +12,11 @@ export class RecipeCardComponent implements OnInit {
   //ToDo: Ingredienttype mit Tags farbig markieren
   //ToDo: Ingredients nach Type sortieren
   @Input() recipe: Recipe;
+  @Input() isStarEnabled: boolean;
 
   constructor() {
-    this.recipe = new Recipe("No recipe found", "https://www.eggs.ca", new Array<Ingredient>(), false)
+    this.recipe = new Recipe("No recipe found", "https://www.eggs.ca", new Array<Ingredient>())
+    this.isStarEnabled = false;
   }
 
   GetUnitTypeAsString(type: UnitType){

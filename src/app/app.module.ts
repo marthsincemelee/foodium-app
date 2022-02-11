@@ -33,6 +33,7 @@ import {NzStepsModule} from 'ng-zorro-antd/steps';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import {NzSwitchModule} from "ng-zorro-antd/switch";
 
 
 registerLocaleData(de);
@@ -70,7 +71,8 @@ registerLocaleData(de);
     NzCardModule,
     NzAnchorModule,
     NzListModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NzSwitchModule
   ],
   providers: [{provide: NZ_I18N, useValue: de_DE}],
   bootstrap: [AppComponent]

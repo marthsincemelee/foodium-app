@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Recipe} from "../models/Recipe";
-import {Ingredient} from "../models/Ingredient";
-import {UnitType} from "../models/UnitType";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {UserService} from "../user.service";
+import {User} from "../models/user";
 
 @Injectable({
   providedIn: 'root'
@@ -25,9 +24,33 @@ export class RecipeService {
 
   }
 
+  addFavouriteRecipeToUser(recipe: Recipe){
+    console.log("Before", this.userService.user);
+    this.client.post<Recipe>(
+      environment.dataUrl + "/recipes",
+      recipe,
+      {headers: {Authorization: "Bearer " + this.userService.jwt }})
+      .subscribe(
+        {
+          next: (next) => {
+            this.userService.user.recipes.push(next);
+            this.client.put<User>(
+              environment.dataUrl + "/users/" + this.userService.user.id,
+              this.userService.user,
+              {headers: {Authorization: "Bearer " + this.userService.jwt }})
+              .subscribe(
+                {
+                  next: (next) => this.userService.user = next,
+                  error: (err) => console.log(err)
+                }
+              );
+          },
+          error: (err) => console.log(err)
+        }
+      );
+  }
+
   addRecipeToDatabase(recipe : Recipe){
-    console.log("Bearer " + this.userService.jwt);
-    console.log(recipe)
     this.client.post(
       environment.dataUrl + "/recipes",
       recipe,

@@ -15,16 +15,19 @@ export class RecipeFormComponent implements OnInit {
   ingredientForm!: FormGroup;
   currentStep: number;
   allIngredients: any;
+  isFavourite: boolean;
 
   constructor(private fb: FormBuilder, private message: NzMessageService, private recipeService:RecipeService) {
     this.currentStep = 0;
     this.allIngredients = [];
+    this.isFavourite = false;
   }
 
   ngOnInit(): void {
     this.recipeForm = this.fb.group({
       recipeName: [null, Validators.required],
-      ingredients: [null]
+      ingredients: [null],
+      isFavourite: [null]
 
     })
 
@@ -53,7 +56,13 @@ export class RecipeFormComponent implements OnInit {
   submitRecipe(): void {
     this.recipeForm.value.ingredients = this.allIngredients;
     if (this.recipeForm.valid) {
-      this.recipeService.addRecipeToDatabase(new Recipe(this.recipeForm.value.recipeName, "", this.recipeForm.value.ingredients, false));
+      let recipe = new Recipe(this.recipeForm.value.recipeName, "", this.recipeForm.value.ingredients);
+
+        if(this.recipeForm.value.isFavourite){
+          this.recipeService.addFavouriteRecipeToUser(recipe);
+        } else {
+          this.recipeService.addRecipeToDatabase(recipe);
+        }
     } else {
       this.message.error('Das hat leider nicht funktioniert.')
     }

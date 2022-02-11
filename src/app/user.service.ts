@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../environments/environment";
 import {FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
+import {User} from "./models/user";
+import {Recipe} from "./models/Recipe";
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +13,13 @@ export class UserService {
   dataLoaded: boolean;
   loginForm!: FormGroup;
   jwt: string;
+  user: User;
 
 
   constructor(private http: HttpClient, private router: Router) {
     this.dataLoaded = false;
     this.jwt = '';
+    this.user = new User(0, "", "", "", false,false, new Array<Recipe>())
   }
 
   requestLogin(username: string, password: string): void {
@@ -29,6 +33,8 @@ export class UserService {
         this.router.navigate(['/home']);
         this.jwt = response.body.jwt;
 
+        this.user = response.body.user;
+        console.log(this.user);
       },
       (error) => {
         console.log(error);

@@ -1,6 +1,6 @@
 <div>
-  <nz-card nzTitle="{{recipe.name}}">
-    <span nz-typography >
+  <nz-card nzTitle="{{recipe.name}}" [nzExtra]="extraTemplate">
+    <span nz-typography>
       Link zum Rezept:
         <a href="{{recipe.recipe_link}}" target="_blank">
           Click here
@@ -19,5 +19,10 @@
       </nz-list-item>
     </nz-list>
   </nz-card>
+
+  <ng-template #extraTemplate>
+    <i nz-icon nzType="star" nzTheme="outline" *ngIf="isStarEnabled" [nzTheme]="'twotone'" [nzTwotoneColor]="'#e8d85e'"></i>
+    <i nz-icon nzType="star" nzTheme="outline" *ngIf="!isStarEnabled"></i>
+  </ng-template>
 </div>
 

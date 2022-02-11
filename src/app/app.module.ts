@@ -6,7 +6,7 @@ import {NZ_I18N} from 'ng-zorro-antd/i18n';
 import {de_DE} from 'ng-zorro-antd/i18n';
 import {registerLocaleData} from '@angular/common';
 import de from '@angular/common/locales/de';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -32,6 +32,7 @@ import {NzSelectModule} from 'ng-zorro-antd/select';
 import {NzStepsModule} from 'ng-zorro-antd/steps';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 
 registerLocaleData(de);
@@ -54,6 +55,7 @@ registerLocaleData(de);
     NzTypographyModule,
     NzButtonModule,
     NzPageHeaderModule,
+    NzMessageModule,
     NzDividerModule,
     NzGridModule,
     NzSelectModule,
@@ -67,7 +69,8 @@ registerLocaleData(de);
     RouterModule,
     NzCardModule,
     NzAnchorModule,
-    NzListModule
+    NzListModule,
+    ReactiveFormsModule
   ],
   providers: [{provide: NZ_I18N, useValue: de_DE}],
   bootstrap: [AppComponent]

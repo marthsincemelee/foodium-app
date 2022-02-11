@@ -1,4 +1,4 @@
-<form nz-form>
+<form nz-form [formGroup]="this.userService.loginForm">
   <nz-form-item>
     <h4 nz-typography style="text-align: center">
       Hallo, um die App zu nutzen, log dich bitte mit deinen Nutzerdaten ein.
@@ -6,15 +6,15 @@
   </nz-form-item>
   <nz-form-item>
     <nz-form-control>
-      <input nz-input name="username" type="text" id="username" placeholder="Benutzername">
+      <input nz-input name="username" type="text" id="username"  formControlName="username" placeholder="Benutzername">
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-control>
-      <input nz-input name="password" type="password" id="password" placeholder="Passwort">
+      <input nz-input name="password" type="password" id="password" formControlName="password" placeholder="Passwort">
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <button nz-button nzBlock nzType="primary" >Login</button>
+    <button nz-button nzBlock (click)="userService.submitForm()" nzType="primary">Login</button>
   </nz-form-item>
 </form>

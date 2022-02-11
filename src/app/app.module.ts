@@ -24,6 +24,8 @@ import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 import { NzCardModule } from "ng-zorro-antd/card";
 import { NzAnchorModule } from "ng-zorro-antd/anchor";
 import {NzListModule} from "ng-zorro-antd/list";
+import { RecipeListComponent } from './recipe-list/recipe-list.component';
+import {NzSpaceModule} from "ng-zorro-antd/space";
 
 
 registerLocaleData(de);
@@ -32,7 +34,8 @@ registerLocaleData(de);
   declarations: [
     AppComponent,
     LoginComponent,
-    RecipeCardComponent
+    RecipeCardComponent,
+    RecipeListComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,8 @@ registerLocaleData(de);
     RouterModule,
     NzCardModule,
     NzAnchorModule,
-    NzListModule
+    NzListModule,
+    NzSpaceModule
   ],
   providers: [{ provide: NZ_I18N, useValue: de_DE }],
   bootstrap: [AppComponent]

@@ -11,42 +11,18 @@ import {UserService} from "../user.service";
 })
 export class RecipeService {
 
-  GetRecipeForWeek(): Array<Recipe> {
-    return new Array<Recipe>(new Recipe("Reis mit Ei", "https://google.com",
-      new Array<Ingredient>(
-        new Ingredient("Ei",1,UnitType.piece, false),
-        new Ingredient("Reis",5,UnitType.kg, false),
-      ), false),
-      new Recipe("Reis mit Ei", "https://google.com",
-        new Array<Ingredient>(
-          new Ingredient("Ei",1,UnitType.piece, false),
-          new Ingredient("Reis",5,UnitType.kg, false),
-        ), false),
-      new Recipe("Reis mit Ei", "https://google.com",
-        new Array<Ingredient>(
-          new Ingredient("Ei",1,UnitType.piece, false),
-          new Ingredient("Reis",5,UnitType.kg, false),
-        ), false),
-      new Recipe("Reis mit Ei", "https://google.com",
-        new Array<Ingredient>(
-          new Ingredient("Ei",1,UnitType.piece, false),
-          new Ingredient("Reis",5,UnitType.kg, false),
-        ), false),
-      new Recipe("Reis mit Ei", "https://google.com",
-        new Array<Ingredient>(
-          new Ingredient("Ei",1,UnitType.piece, false),
-          new Ingredient("Reis",5,UnitType.kg, false),
-        ), false),
-      new Recipe("Reis mit Ei", "https://google.com",
-        new Array<Ingredient>(
-          new Ingredient("Ei",1,UnitType.piece, false),
-          new Ingredient("Reis",5,UnitType.kg, false),
-        ), false),
-      new Recipe("Reis mit Ei", "https://google.com",
-        new Array<Ingredient>(
-          new Ingredient("Ei",1,UnitType.piece, false),
-          new Ingredient("Reis",5,UnitType.kg, false),
-        ), false));
+  recipes : Array<Recipe>
+
+  getAllRecipes() {
+    this.client.get<Array<Recipe>>(environment.dataUrl + "/recipes", {headers: {Authorization: "Bearer " + this.userService.jwt }})
+      .subscribe({
+        next: (next) => this.recipes = next,
+        error: (err) => console.log(err)
+      })
+  }
+
+  getFavouriteRecipes() {
+
   }
 
   addRecipeToDatabase(recipe : Recipe){
@@ -65,5 +41,7 @@ export class RecipeService {
   }
 
 
-  constructor(private client:HttpClient, private userService: UserService) { }
+  constructor(private client:HttpClient, private userService: UserService) {
+    this.recipes = new Array<Recipe>();
+  }
 }

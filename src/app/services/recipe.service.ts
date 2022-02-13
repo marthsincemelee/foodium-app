@@ -44,6 +44,7 @@ export class RecipeService {
       this.favouriteRecipes.push(copyOfRecipes[random]);
       copyOfRecipes.splice(random, 1);
     }
+    this.dataLoaded = true;
   }
 
   addFavouriteRecipeToUser(recipe: Recipe){

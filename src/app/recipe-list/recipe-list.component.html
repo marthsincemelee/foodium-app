@@ -1,14 +1,18 @@
-<h1>Rezepte für eine Woche</h1>
-<div nz-row nzJustify="center">
-  <div nz-col nzXs="18">
-    <button nz-button nzBlock (click)="regenerateWeeklyList()" nzType="default"> Neue Woche generieren</button>
+<div *ngIf="recipeService.dataLoaded">
+  <h1>Rezepte für eine Woche</h1>
+  <div nz-row nzJustify="center">
+    <div nz-col nzXs="18">
+      <button nz-button nzBlock (click)="regenerateWeeklyList()" nzType="default"> Neue Woche generieren</button>
+    </div>
+  </div>
+
+
+  <div nz-row [nzGutter]="[16,16]" nzJustify="center">
+    <div nz-col nzXs="24" nzMd="6" nzLg="3" *ngFor="let recipe of this.recipeService.recipes">
+      <app-recipe-card [recipe]="recipe"></app-recipe-card>
+    </div>
   </div>
 </div>
 
-
-<div nz-row [nzGutter]="[16,16]" nzJustify="center">
-  <div nz-col nzXs="24" nzMd="6" nzSpan="3" *ngFor="let recipe of this.recipeService.recipes">
-    <app-recipe-card [recipe]="recipe"></app-recipe-card>
-  </div>
-</div>
+<nz-empty *ngIf="!recipeService.dataLoaded"></nz-empty>
 

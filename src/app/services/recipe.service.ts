@@ -10,14 +10,21 @@ import {User} from "../models/user";
 })
 export class RecipeService {
 
+  dataLoaded: boolean;
   recipes : Array<Recipe>
 
   getAllRecipes() {
+    this.dataLoaded = false;
+    this.recipes = [];
     this.client.get<Array<Recipe>>(environment.dataUrl + "/recipes", {headers: {Authorization: "Bearer " + this.userService.jwt }})
       .subscribe({
-        next: (next) => this.recipes = next,
+        next: (next) => {
+          this.recipes = next
+          this.dataLoaded = true;
+        },
         error: (err) => console.log(err)
       })
+
   }
 
   generateWeeklyRecipes() {
@@ -74,6 +81,8 @@ export class RecipeService {
 
 
   constructor(private client:HttpClient, private userService: UserService) {
+    this.dataLoaded = false;
     this.recipes = new Array<Recipe>();
+    this.getAllRecipes();
   }
 }

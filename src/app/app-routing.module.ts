@@ -9,8 +9,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'new-recipe', component: RecipeFormComponent},
-  { path: 'generate-week', component: RecipeListComponent}
-];
+  { path: 'generate-week', component: RecipeListComponent},
+  { path: '', component: LoginComponent}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -17,7 +17,7 @@ export class RecipeService {
 
   getAllRecipes() {
     this.dataLoaded = false;
-    this.recipes = [];
+    this.allRecipes = [];
     this.client.get<Array<Recipe>>(environment.dataUrl + "/recipes", {headers: {Authorization: "Bearer " + this.userService.jwt }})
       .subscribe({
         next: (next) => {

@@ -1,0 +1,11 @@
+<div *ngIf="recipeService.dataLoaded">
+  <h1>Alle Rezepte</h1>
+
+  <div nz-row [nzGutter]="[16,16]" nzJustify="center">
+    <div nz-col nzXs="24" nzMd="6" nzSpan="3" *ngFor="let recipe of this.recipeService.allRecipes">
+      <app-recipe-card [recipe]="recipe"></app-recipe-card>
+    </div>
+  </div>
+
+  <nz-empty *ngIf="!recipeService.dataLoaded"></nz-empty>
+</div>

@@ -10,7 +10,7 @@ import {User} from "../models/user";
 })
 export class RecipeService {
 
-  favouriteRecipes : Array<Recipe>;
+  currentWeeklyRecipes : Array<Recipe>;
   allRecipes : Array<Recipe>;
   dataLoaded: boolean;
 
@@ -18,7 +18,7 @@ export class RecipeService {
   getAllRecipes() {
     this.dataLoaded = false;
     this.allRecipes = [];
-    this.client.get<Array<Recipe>>(environment.dataUrl + "/recipes", {headers: {Authorization: "Bearer " + this.userService.jwt }})
+    this.client.get<Array<Recipe>>(environment.dataUrl + "/recipes")
       .subscribe({
         next: (next) => {
             this.allRecipes = next,
@@ -29,8 +29,13 @@ export class RecipeService {
 
   }
 
+  getAllRecipesPromise() {
+    this.allRecipes = [];
+    return this.client.get<Array<Recipe>>(environment.dataUrl + "/recipes");
+  }
+
   generateWeeklyRecipes() {
-    this.favouriteRecipes = new Array<Recipe>();
+    this.currentWeeklyRecipes = new Array<Recipe>();
     let copyOfRecipes = new Array<Recipe>();
     copyOfRecipes = copyOfRecipes.concat(this.userService.user.recipes);
 
@@ -41,7 +46,7 @@ export class RecipeService {
         copyOfRecipes = copyOfRecipes.concat(this.userService.user.recipes);
       }
 
-      this.favouriteRecipes.push(copyOfRecipes[random]);
+      this.currentWeeklyRecipes.push(copyOfRecipes[random]);
       copyOfRecipes.splice(random, 1);
     }
     this.dataLoaded = true;
@@ -89,7 +94,7 @@ export class RecipeService {
 
   constructor(private client:HttpClient, private userService: UserService) {
     this.dataLoaded = false;
-    this.favouriteRecipes = new Array<Recipe>();
+    this.currentWeeklyRecipes = new Array<Recipe>();
     this.allRecipes = new Array<Recipe>();
   }
 }

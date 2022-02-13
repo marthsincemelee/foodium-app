@@ -1,6 +1,8 @@
 import {Ingredient} from "./Ingredient";
 
 export class Recipe {
+  // @ts-ignore
+  id: number;
   name: string;
   recipe_link:string;
   ingredients : Array<Ingredient>;

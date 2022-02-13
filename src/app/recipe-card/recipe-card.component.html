@@ -1,4 +1,4 @@
-<div *ngIf="recipeService.dataLoaded">
+<div *ngIf="recipeService.dataLoaded" itemtype="http://schema.org/Recipe">
   <nz-card nzTitle="{{recipe.name}}" [nzExtra]="extraTemplate">
     <span nz-typography>
       Link zum Rezept:
@@ -11,7 +11,7 @@
     <nz-list nzSize="small" style="margin-top: 2vh">
       <nz-list-header>Inhaltsliste</nz-list-header>
       <nz-list-item *ngFor="let ingredient of recipe.ingredients">
-        <span>
+        <span itemprop="ingredient">
           <span nz-typography>{{ingredient.amount}}</span>
           <span nz-typography>{{ingredient.unit}}</span>
           <span nz-typography>{{ingredient.name}}</span>

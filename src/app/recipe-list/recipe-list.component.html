@@ -6,11 +6,13 @@
     </div>
   </div>
 
-<div nz-row [nzGutter]="[16,16]" nzJustify="center">
-  <div nz-col nzXs="24" nzMd="6" nzSpan="3" *ngFor="let recipe of this.recipeService.favouriteRecipes">
-    <app-recipe-card [recipe]="recipe"></app-recipe-card>
+  <div nz-row [nzGutter]="[16,16]" nzJustify="center">
+    <div nz-col nzXs="24" nzMd="6" nzSpan="3" *ngFor="let recipe of this.recipeService.currentWeeklyRecipes">
+      <app-recipe-card [recipe]="recipe"></app-recipe-card>
+    </div>
   </div>
-</div>
 
-<nz-empty *ngIf="!recipeService.dataLoaded"></nz-empty>
+  <button (click)="forwardToIngredientList()"> Generiere Bring! Zutatenliste</button>
+
+  <nz-empty *ngIf="!recipeService.dataLoaded"></nz-empty>
 </div>

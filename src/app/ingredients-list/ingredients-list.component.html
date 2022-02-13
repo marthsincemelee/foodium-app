@@ -1,0 +1,32 @@
+<div *ngIf="recipeService.dataLoaded" itemtype="http://schema.org/Recipe">
+  <div itemprop="name"><h1 >Zutaten für alle Wöchentlichen Rezepte</h1></div>
+  <div itemprop="author"><span>By </span><span>Foodium</span></div>
+  <div nz-row [nzGutter]="[16,16]" nzJustify="center">
+      <nz-table>
+        <thead>
+        <tr>
+          <th>Amount</th>
+          <th>Unit</th>
+          <th>Name</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let ingredient of ingredientList" itemprop="ingredient">
+          <td>{{ingredient.amount}}</td>
+          <td>{{ingredient.unit}}</td>
+          <td>{{ingredient.name}}</td>
+          <td>
+            <a><i nz-icon nzType="delete" nzTheme="outline" [nzTheme]="'twotone'" [nzTwotoneColor]="'#FF0000'">></i></a>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+  </div>
+
+  <a href="https://api.getbring.com/rest/bringrecipes/deeplink?url={{this.currentURL}}&source=web&baseQuantity=4&requestedQuantity=4"> Importiere Liste </a>
+
+  <nz-empty *ngIf="!recipeService.dataLoaded"></nz-empty>
+
+
+</div>

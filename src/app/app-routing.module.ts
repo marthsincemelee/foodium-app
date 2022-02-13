@@ -11,7 +11,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'new-recipe', component: RecipeFormComponent},
   { path: 'generate-week', component: RecipeListComponent},
-  {path: 'favourites', component: FavouriteListComponent}
+  {path: 'favourites', component: FavouriteListComponent},
+  { path: '', component: LoginComponent}]
 ];
 
 @NgModule({

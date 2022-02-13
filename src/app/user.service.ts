@@ -10,6 +10,7 @@ import {Recipe} from "./models/Recipe";
   providedIn: 'root'
 })
 export class UserService {
+  isLoading: boolean;
   dataLoaded: boolean;
   loginForm!: FormGroup;
   jwt: string;
@@ -18,28 +19,29 @@ export class UserService {
 
   constructor(private http: HttpClient, private router: Router) {
     this.dataLoaded = false;
+    this.isLoading = false;
     this.jwt = '';
     this.user = new User(0, "", "", "", false,false, new Array<Recipe>())
   }
 
   requestLogin(username: string, password: string): void {
+    this.isLoading = true;
     const data = {
       identifier: username,
       password: password
     }
     this.http.post<any>(environment.dataUrl + '/auth/local', data, {observe: "response"}).subscribe(
       (response) => {
-        console.log(response.body);
         this.router.navigate(['/home']);
         this.jwt = response.body.jwt;
-
         this.user = response.body.user;
-        console.log(this.user);
       },
       (error) => {
         console.log(error);
       }
     )
+
+    this.isLoading = false;
   }
 
   submitForm(): void {

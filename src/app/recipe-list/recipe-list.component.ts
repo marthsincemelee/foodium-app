@@ -10,6 +10,7 @@ export class RecipeListComponent implements OnInit {
 
   constructor(public recipeService: RecipeService) {
     this.regenerateWeeklyList();
+    this.recipeService.getAllRecipes();
   }
 
   regenerateWeeklyList() {

@@ -20,15 +20,18 @@ export class RecipeListComponent implements OnInit {
 
   forwardToIngredientList() {
     let currentRecipes = this.recipeService.currentWeeklyRecipes;
+    let queryParams = "";
+
+    currentRecipes.forEach( recipe => {
+      queryParams+= recipe.id + "-"
+    });
+
+    queryParams = queryParams.slice(0, queryParams.length-1);
+    console.log("Query", queryParams);
+
     this.router.navigate(['/import/'],
       { queryParams: {
-        id1: currentRecipes[0].id,
-        id2: currentRecipes[1].id,
-        id3: currentRecipes[2].id,
-        id4: currentRecipes[3].id,
-        id5: currentRecipes[4].id,
-        id6: currentRecipes[5].id,
-        id7: currentRecipes[6].id
+        recipeIds: queryParams
       }}
     );
   }

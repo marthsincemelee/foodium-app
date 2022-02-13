@@ -19,13 +19,9 @@ export class IngredientsListComponent implements OnInit {
     console.log(window.location.href)
     console.log("https://api.getbring.com/rest/bringrecipes/deeplink?url=" + this.currentURL + "&source=web&baseQuantity=4&requestedQuantity=4")
     this.route.queryParams.subscribe(params => {
-      this.ingredientIds.push(params["id1"]);
-      this.ingredientIds.push(params["id2"]);
-      this.ingredientIds.push(params["id3"]);
-      this.ingredientIds.push(params["id4"]);
-      this.ingredientIds.push(params["id5"]);
-      this.ingredientIds.push(params["id6"]);
-      this.ingredientIds.push(params["id7"]);
+      let recipeIds :string = params["recipeIds"];
+      console.log(recipeIds)
+      recipeIds.split("-").forEach( id => this.ingredientIds.push(Number.parseInt(id)));
     });
 
     console.log(this.ingredientIds)

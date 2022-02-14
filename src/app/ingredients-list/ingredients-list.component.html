@@ -24,7 +24,7 @@
       </nz-table>
   </div>
 
-  <a href="https://api.getbring.com/rest/bringrecipes/deeplink?url={{this.currentURL}}&source=web&baseQuantity=4&requestedQuantity=4"> Importiere Liste </a>
+  <a href="{{getEncodedURL()}}"> Importiere Liste </a>
 
   <nz-empty *ngIf="!recipeService.dataLoaded"></nz-empty>
 

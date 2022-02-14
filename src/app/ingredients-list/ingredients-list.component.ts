@@ -50,6 +50,10 @@ export class IngredientsListComponent implements OnInit {
 
   }
 
+  getEncodedURL() : string {
+    return encodeURI("https://api.getbring.com/rest/bringrecipes/deeplink?url=" + this.currentURL + "&source=web&baseQuantity=4&requestedQuantity=4")
+  }
+
   ngOnInit(): void {
 
   }

@@ -14,14 +14,12 @@ export class UserService {
   isLoading: boolean;
   dataLoaded: boolean;
   loginForm!: FormGroup;
-  jwt: string;
   user: User;
 
 
   constructor(private backendService: BackendService, private router: Router) {
     this.dataLoaded = false;
     this.isLoading = false;
-    this.jwt = '';
     this.user = new User(0, "", "", "", false,false, new Array<Recipe>())
   }
 
@@ -31,7 +29,7 @@ export class UserService {
       {
         next: (data: any) => {
           this.router.navigate(['/home']);
-          this.jwt = data.body.jwt;
+          this.backendService.jwt = data.body.jwt;
           this.user = data.body.user;
         }
       }
@@ -51,6 +49,10 @@ export class UserService {
         }
       });
     }
+  }
+
+  addRecipeToUser(recipe: Recipe){
+    this.user.recipes.push(recipe);
   }
 
 }

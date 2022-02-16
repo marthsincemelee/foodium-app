@@ -14,7 +14,7 @@ export class BackendService {
   constructor(private client: HttpClient) { }
 
   public getRecipes() {
-    return this.client.get<Array<Recipe>>(environment.dataUrl + '/recipes',{headers: {Authentication: "Bearer " + this.jwt}});
+    return this.client.get<Array<Recipe>>(environment.dataUrl + '/recipes',{headers: {Authorization: "Bearer " + this.jwt}});
   }
 
   public requestAuthentication(username: string, password: string){
@@ -26,12 +26,12 @@ export class BackendService {
   }
 
   public updateUserRecipeListWithCurrentUser(user: User){
-    return this.client.put<User>(environment.dataUrl + '/users/' + user.id, user, {headers: {Authentication: "Bearer " + this.jwt}});
+    return this.client.put<User>(environment.dataUrl + '/users/' + user.id, user, {headers: {Authorization: "Bearer " + this.jwt}});
   }
 
 
   public addRecipe(recipe: Recipe) {
-    return this.client.post<Recipe>(environment.dataUrl + "/recipes", recipe, {headers: {Authentication: "Bearer " + this.jwt}});
+    return this.client.post<Recipe>(environment.dataUrl + "/recipes", recipe, {headers: {Authorization: "Bearer " + this.jwt}});
   }
 
 }

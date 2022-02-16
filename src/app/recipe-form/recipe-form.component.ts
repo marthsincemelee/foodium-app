@@ -61,7 +61,7 @@ export class RecipeFormComponent implements OnInit {
         if(this.recipeForm.value.isFavourite){
           this.recipeService.addFavouriteRecipeToUser(recipe);
         } else {
-          this.recipeService.addRecipeToDatabase(recipe);
+          this.recipeService.addRecipe(recipe);
         }
     } else {
       this.message.error('Das hat leider nicht funktioniert.')

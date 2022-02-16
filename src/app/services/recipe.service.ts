@@ -42,7 +42,7 @@ export class RecipeService {
       next: data => {
         this.userService.addRecipeToUser(data);
 
-        this.backendService.updateUserRecipeListWithCurrentUser(this.userService.user).subscribe(
+        this.backendService.addRecipeToUser(this.userService.user).subscribe(
           {
           next: data => {
             console.log("Updated User", data);

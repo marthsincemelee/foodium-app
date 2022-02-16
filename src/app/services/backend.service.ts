@@ -25,10 +25,9 @@ export class BackendService {
     return this.client.post<any>(environment.dataUrl + '/auth/local', data, {observe: "response"});
   }
 
-  public updateUserRecipeListWithCurrentUser(user: User){
+  public addRecipeToUser(user: User){
     return this.client.put<User>(environment.dataUrl + '/users/' + user.id, user, {headers: {Authorization: "Bearer " + this.jwt}});
   }
-
 
   public addRecipe(recipe: Recipe) {
     return this.client.post<Recipe>(environment.dataUrl + "/recipes", recipe, {headers: {Authorization: "Bearer " + this.jwt}});

@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../environments/environment";
+import {environment} from "../../environments/environment";
 import {FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
-import {User} from "./models/user";
-import {Recipe} from "./models/Recipe";
+import {User} from "../models/user";
+import {Recipe} from "../models/Recipe";
+import {BackendService} from "./backend.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,31 +14,24 @@ export class UserService {
   isLoading: boolean;
   dataLoaded: boolean;
   loginForm!: FormGroup;
-  jwt: string;
   user: User;
 
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private backendService: BackendService, private router: Router) {
     this.dataLoaded = false;
     this.isLoading = false;
-    this.jwt = '';
     this.user = new User(0, "", "", "", false,false, new Array<Recipe>())
   }
 
   requestLogin(username: string, password: string): void {
     this.isLoading = true;
-    const data = {
-      identifier: username,
-      password: password
-    }
-    this.http.post<any>(environment.dataUrl + '/auth/local', data, {observe: "response"}).subscribe(
-      (response) => {
-        this.router.navigate(['/home']);
-        this.jwt = response.body.jwt;
-        this.user = response.body.user;
-      },
-      (error) => {
-        console.log(error);
+    this.backendService.requestAuthentication(username, password).subscribe(
+      {
+        next: (data: any) => {
+          this.router.navigate(['/home']);
+          this.backendService.jwt = data.body.jwt;
+          this.user = data.body.user;
+        }
       }
     )
 
@@ -55,6 +49,10 @@ export class UserService {
         }
       });
     }
+  }
+
+  addRecipeToUser(recipe: Recipe){
+    this.user.recipes.push(recipe);
   }
 
 }

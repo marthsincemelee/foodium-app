@@ -4,6 +4,7 @@ import {UserService} from "./user.service";
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {User} from "../models/user";
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -64,18 +65,18 @@ export class RecipeService {
   }
 
   public getRecipes() {
-    return this.client.get<Array<Recipe>>(environment.dataUrl + '/recipes',{headers: {Authorization: "Bearer " + this.userService.jwt}});
+    return this.client.get<Array<Recipe>>(environment.dataUrl + '/recipes',{headers: {Authorization: "Bearer " + this.authService.jwt}});
   }
 
   public addRecipeToUser(user: User){
-    return this.client.put<User>(environment.dataUrl + '/users/' + user.id, user, {headers: {Authorization: "Bearer " + this.userService.jwt}});
+    return this.client.put<User>(environment.dataUrl + '/users/' + user.id, user, {headers: {Authorization: "Bearer " + this.authService.jwt}});
   }
 
   public addRecipeToDatabase(recipe: Recipe) {
-    return this.client.post<Recipe>(environment.dataUrl + "/recipes", recipe, {headers: {Authorization: "Bearer " + this.userService.jwt}});
+    return this.client.post<Recipe>(environment.dataUrl + "/recipes", recipe, {headers: {Authorization: "Bearer " + this.authService.jwt}});
   }
 
-  constructor(private client: HttpClient, private userService : UserService) {
+  constructor(private client: HttpClient, private userService : UserService, private authService: AuthService) {
     this.dataLoaded = false;
     this.favouriteRecipes = new Array<Recipe>();
     this.allRecipes = new Array<Recipe>();

@@ -5,6 +5,7 @@ import {FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {User} from "../models/user";
 import {Recipe} from "../models/Recipe";
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +15,9 @@ export class UserService {
   dataLoaded: boolean;
   loginForm!: FormGroup;
   user: User;
-  jwt: string = "";
 
 
-  constructor(private client: HttpClient, private router: Router) {
+  constructor(private client: HttpClient, private router: Router, private authService: AuthService) {
     this.dataLoaded = false;
     this.isLoading = false;
     this.user = new User(0, "", "", "", false,false, new Array<Recipe>())
@@ -29,7 +29,8 @@ export class UserService {
       {
         next: (data: any) => {
           this.router.navigate(['/home']);
-          this.jwt = data.body.jwt;
+          this.authService.setJWTTokenCookie(data.body.jwt);
+          this.authService.setUserID(data.body.user.id);
           this.user = data.body.user;
         }
       }
@@ -63,4 +64,17 @@ export class UserService {
     return this.client.post<any>(environment.dataUrl + '/auth/local', data, {observe: "response"});
   }
 
+  public logout(){
+    this.authService.removeJWTToken();
+  }
+
+  retrieveUser(userId: string) {
+    this.client.get<User>(environment.dataUrl + '/users/' + userId).subscribe({
+      next: data => this.user = data,
+      error: err => {
+        console.log("Userdaten können nicht geladen werden");
+        this.router.navigate(["login"]);
+      }
+    })
+  }
 }

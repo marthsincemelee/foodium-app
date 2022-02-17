@@ -19,6 +19,6 @@
   <nz-divider nzType="horizontal"></nz-divider>
 
   <div nz-col nzXs="18">
-    <button nz-button nzBlock disabled nzDanger nzType="primary">Ausloggen</button>
+    <button nz-button nzBlock nzDanger (click)="this.authService.logout()" nzType="primary">Ausloggen</button>
   </div>
 </div>

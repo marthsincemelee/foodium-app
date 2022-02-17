@@ -5,7 +5,6 @@ import {FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {User} from "../models/user";
 import {Recipe} from "../models/Recipe";
-import {BackendService} from "./backend.service";
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +14,10 @@ export class UserService {
   dataLoaded: boolean;
   loginForm!: FormGroup;
   user: User;
+  jwt: string = "";
 
 
-  constructor(private backendService: BackendService, private router: Router) {
+  constructor(private client: HttpClient, private router: Router) {
     this.dataLoaded = false;
     this.isLoading = false;
     this.user = new User(0, "", "", "", false,false, new Array<Recipe>())
@@ -25,11 +25,11 @@ export class UserService {
 
   requestLogin(username: string, password: string): void {
     this.isLoading = true;
-    this.backendService.requestAuthentication(username, password).subscribe(
+    this.requestAuthentication(username, password).subscribe(
       {
         next: (data: any) => {
           this.router.navigate(['/home']);
-          this.backendService.jwt = data.body.jwt;
+          this.jwt = data.body.jwt;
           this.user = data.body.user;
         }
       }
@@ -53,6 +53,14 @@ export class UserService {
 
   addRecipeToUser(recipe: Recipe){
     this.user.recipes.push(recipe);
+  }
+
+  public requestAuthentication(username: string, password: string){
+    const data = {
+      identifier: username,
+      password: password
+    }
+    return this.client.post<any>(environment.dataUrl + '/auth/local', data, {observe: "response"});
   }
 
 }

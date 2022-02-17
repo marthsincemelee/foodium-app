@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Recipe} from "../models/Recipe";
 import {UserService} from "./user.service";
-import {BackendService} from "./backend.service";
+import {environment} from "../../environments/environment";
+import {HttpClient} from "@angular/common/http";
+import {User} from "../models/user";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +19,7 @@ export class RecipeService {
     this.dataLoaded = false;
     this.allRecipes = [];
 
-    this.backendService.getRecipes().subscribe(
+    this.getRecipes().subscribe(
       {
         next: data => {
           this.allRecipes = data;
@@ -38,11 +40,11 @@ export class RecipeService {
 
   addFavouriteRecipeToUser(recipe: Recipe){
 
-    this.backendService.addRecipe(recipe).subscribe({
+    this.addRecipeToDatabase(recipe).subscribe({
       next: data => {
         this.userService.addRecipeToUser(data);
 
-        this.backendService.addRecipeToUser(this.userService.user).subscribe(
+        this.addRecipeToUser(this.userService.user).subscribe(
           {
           next: data => {
             console.log("Updated User", data);
@@ -54,15 +56,26 @@ export class RecipeService {
   }
 
   addRecipe(recipe : Recipe){
-
-    this.backendService.addRecipe(recipe).subscribe({
+    this.addRecipeToDatabase(recipe).subscribe({
       next: data => {
         console.log("Added Recipe to database", data);
       }
     })
   }
 
-  constructor(private backendService: BackendService, private userService : UserService) {
+  public getRecipes() {
+    return this.client.get<Array<Recipe>>(environment.dataUrl + '/recipes',{headers: {Authorization: "Bearer " + this.userService.jwt}});
+  }
+
+  public addRecipeToUser(user: User){
+    return this.client.put<User>(environment.dataUrl + '/users/' + user.id, user, {headers: {Authorization: "Bearer " + this.userService.jwt}});
+  }
+
+  public addRecipeToDatabase(recipe: Recipe) {
+    return this.client.post<Recipe>(environment.dataUrl + "/recipes", recipe, {headers: {Authorization: "Bearer " + this.userService.jwt}});
+  }
+
+  constructor(private client: HttpClient, private userService : UserService) {
     this.dataLoaded = false;
     this.favouriteRecipes = new Array<Recipe>();
     this.allRecipes = new Array<Recipe>();

@@ -48,7 +48,6 @@ export class RecipeService {
         this.addRecipeToUser(this.userService.user).subscribe(
           {
           next: data => {
-            console.log("Updated User", data);
             this.userService.user = data;
           }
         })

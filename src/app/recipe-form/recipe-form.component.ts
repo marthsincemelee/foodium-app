@@ -63,9 +63,16 @@ export class RecipeFormComponent implements OnInit {
         } else {
           this.recipeService.addRecipe(recipe);
         }
+
+        this.recipeForm.reset();
+        this.allIngredients = [];
     } else {
       this.message.error('Das hat leider nicht funktioniert.')
     }
   }
 
+  removeIngredient(ingredient: any) {
+    let index = this.allIngredients.indexOf(ingredient);
+    this.allIngredients.splice(index, 1);
+  }
 }

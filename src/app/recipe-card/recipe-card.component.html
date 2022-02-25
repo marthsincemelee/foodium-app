@@ -7,21 +7,24 @@
           <Link />
         </a>
       </span>
-
-    <nz-list nzSize="small" style="margin-top: 2vh">
-      <nz-list-header>Inhaltsliste</nz-list-header>
-      <nz-list-item *ngFor="let ingredient of recipe.ingredients">
-        <span>
-          <span nz-typography>{{ingredient.amount}}</span>
-          <span nz-typography>{{ingredient.unit}}</span>
-          <span nz-typography>{{ingredient.name}}</span>
-        </span>
-      </nz-list-item >
-    </nz-list>
+  <nz-collapse [nzBordered]="false">
+    <nz-collapse-panel [nzHeader]="this.ingredientsTitle">
+      <nz-list nzSize="small">
+        <nz-list-item *ngFor="let ingredient of recipe.ingredients">
+          <span>
+            <span nz-typography>{{ingredient.amount}}</span>
+            <span nz-typography>{{ingredient.unit}}</span>
+            <span nz-typography>{{ingredient.name}}</span>
+          </span>
+        </nz-list-item >
+      </nz-list>
+    </nz-collapse-panel>
+  </nz-collapse>
   </nz-card>
 
   <ng-template #extraTemplate>
     <i nz-icon nzType="star" nzTheme="outline" [nzTheme]="'twotone'" [nzTwotoneColor]="'#e8d85e'"></i>
   </ng-template>
 </div>
+
 

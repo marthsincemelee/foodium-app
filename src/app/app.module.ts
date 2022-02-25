@@ -38,6 +38,7 @@ import { FavouriteListComponent } from './favourite-list/favourite-list.componen
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { AllRecipeListComponent } from './all-recipe-list/all-recipe-list.component';
+import {NzCollapseModule} from "ng-zorro-antd/collapse";
 
 
 registerLocaleData(de);
@@ -55,33 +56,34 @@ registerLocaleData(de);
     FavouriteListComponent,
     AllRecipeListComponent
   ],
-  imports: [
-    BrowserModule,
-    NzEmptyModule,
-    FormsModule,
-    NzLayoutModule,
-    NzTypographyModule,
-    NzButtonModule,
-    NzPageHeaderModule,
-    NzMessageModule,
-    NzDividerModule,
-    NzGridModule,
-    NzSpinModule,
-    NzSelectModule,
-    NzStepsModule,
-    NzIconModule,
-    NzInputModule,
-    NzFormModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    RouterModule,
-    NzCardModule,
-    NzAnchorModule,
-    NzListModule,
-    ReactiveFormsModule,
-    NzSwitchModule
-  ],
+    imports: [
+        BrowserModule,
+        NzEmptyModule,
+        FormsModule,
+        NzLayoutModule,
+        NzTypographyModule,
+        NzButtonModule,
+        NzPageHeaderModule,
+        NzMessageModule,
+        NzDividerModule,
+        NzGridModule,
+        NzSpinModule,
+        NzSelectModule,
+        NzStepsModule,
+        NzIconModule,
+        NzInputModule,
+        NzFormModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        RouterModule,
+        NzCardModule,
+        NzAnchorModule,
+        NzListModule,
+        ReactiveFormsModule,
+        NzSwitchModule,
+        NzCollapseModule
+    ],
   providers: [{provide: NZ_I18N, useValue: de_DE}],
   bootstrap: [AppComponent]
 })

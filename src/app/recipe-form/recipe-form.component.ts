@@ -26,6 +26,7 @@ export class RecipeFormComponent implements OnInit {
   ngOnInit(): void {
     this.recipeForm = this.fb.group({
       recipeName: [null, Validators.required],
+      recipeLink: [null, Validators.required],
       ingredients: [null],
       isFavourite: [null]
 
@@ -56,7 +57,7 @@ export class RecipeFormComponent implements OnInit {
   submitRecipe(): void {
     this.recipeForm.value.ingredients = this.allIngredients;
     if (this.recipeForm.valid) {
-      let recipe = new Recipe(this.recipeForm.value.recipeName, "", this.recipeForm.value.ingredients);
+      let recipe = new Recipe(this.recipeForm.value.recipeName, this.recipeForm.value.recipeLink, this.recipeForm.value.ingredients);
 
         if(this.recipeForm.value.isFavourite){
           this.recipeService.addFavouriteRecipeToUser(recipe);

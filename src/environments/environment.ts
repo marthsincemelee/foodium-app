@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  dataUrl: 'http://localhost:1337'
+  dataUrl: 'http://cloudypanda.de:1337'
 };
 
 /*

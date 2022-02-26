@@ -4,20 +4,24 @@
       <h4 nz-typography style="text-align: center">Hier kannst du ein neues Rezept erstellen.</h4>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-control>
-        <input nz-input name="recipeName" formControlName="recipeName" type="text" id="recipeName"
-               placeholder="Name des Rezepts" >
+      <nz-form-control nzErrorTip="Bitte gebe den Namen des Rezeptes ein!">
+        <nz-input-group nzPrefixIcon="edit">
+          <input nz-input name="recipeName" formControlName="recipeName" type="text" id="recipeName"
+                 placeholder="Name des Rezepts" >
+        </nz-input-group>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-control>
-        <input nz-input name="recipeLink" type="text" id="recipeLink" formControlName="recipeLink"
-               placeholder="Link zum Rezept">
+      <nz-form-control nzErrorTip="Bitte gebe einen Link für das Rezept an!">
+        <nz-input-group nzPrefixIcon="link">
+          <input nz-input name="recipeLink" type="text" id="recipeLink" formControlName="recipeLink"
+                 placeholder="Link zum Rezept">
+        </nz-input-group>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <label>Möchtest du das Rezept favorisieren ?</label>
-      <nz-switch formControlName="isFavourite"></nz-switch>
+      <nz-switch formControlName="isFavourite" style="margin-left: 15px"></nz-switch>
     </nz-form-item>
     <nz-form-item>
       <button type="submit" [disabled]="!(allIngredients.length > 0)" nz-button nzType="primary" nzBlock>Rezept hinzufügen</button>
@@ -28,14 +32,18 @@
   <form nz-form [formGroup]="ingredientForm" (submit)="addIngredient()">
     <nz-divider nzType="horizontal" nzText="Zutaten"></nz-divider>
     <nz-form-item>
-      <nz-input-group [nzAddOnAfter]="addOnAfterTemplate">
+      <nz-form-control nzErrorTip="Bitte gebe eine Menge für die Zutat an!">
+        <nz-input-group [nzAddOnAfter]="addOnAfterTemplate" >
         <input type="number" nz-input name="ingredientAmount" formControlName="ingredientAmount" placeholder="Menge"/>
       </nz-input-group>
+      </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-control>
+      <nz-form-control nzErrorTip="Bitte gebe einen Namen für die Zutat an!">
+        <nz-input-group nzPrefixIcon="edit">
         <input nz-input name="ingredientName" type="text" id="ingredientName" formControlName="ingredientName"
                placeholder="Zutaten">
+        </nz-input-group>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>

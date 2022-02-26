@@ -1,25 +1,36 @@
-<nz-spin [nzSpinning]="userService.isLoading">
-  <form nz-form [formGroup]="this.userService.loginForm" *ngIf="!userService.isLoading">
-    <nz-form-item>
-      <h4 nz-typography style="text-align: center">
-        Hallo, um die App zu nutzen, log dich bitte mit deinen Nutzerdaten ein.
-      </h4>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-control>
-        <input nz-input name="username" type="text" id="username"  formControlName="username" placeholder="Benutzername">
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-control>
-        <input nz-input name="password" type="password" id="password" formControlName="password" placeholder="Passwort">
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <button nz-button nzBlock (click)="userService.submitForm()" nzType="primary">Login</button>
-    </nz-form-item>
-  </form>
-</nz-spin>
+<div nz-row nzJustify="center">
+  <div nz-col nzSpan="8">
+    <nz-spin [nzSpinning]="userService.isLoading">
+      <form nz-form [formGroup]="this.userService.loginForm" *ngIf="!userService.isLoading">
+        <nz-form-item>
+          <h4 nz-typography style="text-align: center">
+            Hallo, um die App zu nutzen, log dich bitte mit deinen Nutzerdaten ein.
+          </h4>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <input nz-input name="username" type="text" id="username" formControlName="username"
+                   placeholder="Benutzername">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <input nz-input name="password" type="password" id="password" formControlName="password"
+                   placeholder="Passwort">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <button nz-button nzBlock (click)="userService.submitForm()" nzType="primary">Login</button>
+        </nz-form-item>
+      </form>
+    </nz-spin>
+  </div>
+</div>
+
+
+
+
+
 
 
 

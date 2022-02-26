@@ -36,6 +36,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import {NzSwitchModule} from "ng-zorro-antd/switch";
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
 
 
 registerLocaleData(de);
@@ -54,6 +55,7 @@ registerLocaleData(de);
   imports: [
     BrowserModule,
     NzEmptyModule,
+    NzMenuModule,
     FormsModule,
     NzLayoutModule,
     NzTypographyModule,

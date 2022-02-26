@@ -1,15 +1,29 @@
 <div *ngIf="recipeService.dataLoaded">
 
   <div nz-row [nzGutter]="[16,16]" nzJustify="center">
-    <div nz-col nzXs="24">
+    <div nz-col nzXs="12">
       <input type="text" class="form-control" id="search-text" aria-describedby="search-text"
              [(ngModel)]="searchText" placeholder="Suche nach Rezept ..."
              autofocus>
     </div>
-    <div nz-col nzXs="24" nzMd="6" nzSpan="3" *ngFor="let recipe of this.recipeService.allRecipes | textFilter: searchText">
-      <app-recipe-card [recipe]="recipe"></app-recipe-card>
+    <div nz-col nzXs="12">
+      <nz-switch
+        [(ngModel)]="isFavouriteChecked"
+        [nzControl]="true"
+        (click)="clickSwitch()"
+        [nzLoading]="!this.recipeService.dataLoaded"
+        [nzCheckedChildren]="checkedTemplate"
+        [nzUnCheckedChildren]="unCheckedTemplate"
+      ></nz-switch>
+      <ng-template #checkedTemplate><i nz-icon nzType="star" nzTheme="outline" [nzTheme]="'twotone'" [nzTwotoneColor]="'#e8d85e'"></i></ng-template>
+      <ng-template #unCheckedTemplate><i nz-icon nzType="star" nzTheme="outline" [nzTheme]="'twotone'" [nzTwotoneColor]="'#808080'"></i></ng-template>
     </div>
   </div>
 
+  <div nz-row [nzGutter]="[16,16]" nzJustify="center">
+      <div nz-col nzXs="24" nzMd="6" nzSpan="3" *ngFor="let recipe of this.recipeService.allRecipes | textFilter: searchText">
+        <app-recipe-card [recipe]="recipe"></app-recipe-card>
+      </div>
+  </div>
   <nz-empty *ngIf="!recipeService.dataLoaded"></nz-empty>
 </div>

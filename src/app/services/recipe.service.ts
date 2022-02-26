@@ -19,18 +19,17 @@ export class RecipeService {
   getAllRecipes() {
     this.dataLoaded = false;
     this.allRecipes = new Array<Recipe>();
-
+    this.favouriteRecipes = new Array<Recipe>();
     this.getRecipes().subscribe(
       {
         next: data => {
           this.allRecipes = data as Array<Recipe>;
-
           this.allRecipes.forEach(recipe => {
             if(this.userService.user.recipes.find(r => r.id == recipe.id)){
               recipe.favourite = true;
+              this.favouriteRecipes.push(recipe);
             }
           })
-
           console.log(this.allRecipes)
           this.dataLoaded = true;
         }
@@ -39,6 +38,7 @@ export class RecipeService {
   }
 
   generateWeeklyRecipes() {
+    this.dataLoaded = false;
     this.favouriteRecipes = new Array<Recipe>();
     let copyOfRecipes = new Array<Recipe>();
     copyOfRecipes = copyOfRecipes.concat(this.userService.user.recipes);

@@ -1,8 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {Recipe} from "../models/Recipe";
 
-@Pipe({ name: 'recipeFilter' })
-export class RecipeFilterPipe implements PipeTransform {
+@Pipe({ name: 'textFilter' })
+export class TextFilterPipe implements PipeTransform {
   /**
    * Pipe filters the list of elements based on the search text provided
    *

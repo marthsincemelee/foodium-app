@@ -39,7 +39,8 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { AllRecipeListComponent } from './all-recipe-list/all-recipe-list.component';
 import {NzCollapseModule} from "ng-zorro-antd/collapse";
-import {RecipeFilterPipe} from "./pipes/RecipeFilterPipe";
+import {FavouriteFilterPipe} from "./pipes/FavouriteFilterPipe";
+import {TextFilterPipe} from "./pipes/TextFilterPipe";
 
 
 registerLocaleData(de);
@@ -56,7 +57,8 @@ registerLocaleData(de);
     RecipeListComponent,
     FavouriteListComponent,
     AllRecipeListComponent,
-    RecipeFilterPipe
+    FavouriteFilterPipe,
+    TextFilterPipe
   ],
     imports: [
         BrowserModule,

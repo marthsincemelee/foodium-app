@@ -8,7 +8,7 @@
              [(ngModel)]="searchText" placeholder="Suche nach Rezept ..."
              autofocus>
     </div>
-    <div nz-col nzXs="24" nzMd="6" nzSpan="3" *ngFor="let recipe of this.recipeService.allRecipes | recipeFilter: searchText">
+    <div nz-col nzXs="24" nzMd="6" nzSpan="3" *ngFor="let recipe of this.recipeService.allRecipes | textFilter: searchText">
       <app-recipe-card [recipe]="recipe"></app-recipe-card>
     </div>
   </div>

@@ -39,6 +39,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { AllRecipeListComponent } from './all-recipe-list/all-recipe-list.component';
 import {NzCollapseModule} from "ng-zorro-antd/collapse";
+import { NzMenuModule } from 'ng-zorro-antd/menu';
 
 
 registerLocaleData(de);
@@ -62,6 +63,7 @@ registerLocaleData(de);
         FormsModule,
         NzLayoutModule,
         NzTypographyModule,
+        NzMenuModule,
         NzButtonModule,
         NzPageHeaderModule,
         NzMessageModule,

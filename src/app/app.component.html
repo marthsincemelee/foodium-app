@@ -2,8 +2,13 @@
   nzTitle="Foodium"
   nzBackIcon="images/chicken-leg"
 ></nz-page-header>
-<div nz-row nzJustify="center">
+
+<div nz-row nzJustify="center" [nzGutter]="[0, 16]">
+
   <div nz-col nzXs="22">
     <router-outlet></router-outlet>
+  </div>
+  <div nz-col nzXs="22">
+    <!--app-app-bar></app-app-bar-->
   </div>
 </div>

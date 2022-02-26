@@ -1,4 +1,4 @@
-<div *ngIf="recipeService.dataLoaded">
+<!--div *ngIf="recipeService.dataLoaded">
   <nz-card nzTitle="{{recipe.name}}" [nzExtra]="extraTemplate">
     <span nz-typography>
       Link zum Rezept:
@@ -25,6 +25,23 @@
   <ng-template #extraTemplate>
     <i nz-icon nzType="star" nzTheme="outline" [nzTheme]="'twotone'" [nzTwotoneColor]="'#e8d85e'"></i>
   </ng-template>
+</--div-->
+
+
+<div class="recipe-card-container-front"
+     (click)="flipCard()"
+     *ngIf="isFrontDisplayed">
+  <h4 nz-typography class="recipe-name">{{recipe.name}}</h4>
+</div>
+
+<div class="recipe-card-container-back"
+     *ngIf="!isFrontDisplayed"
+     (click)="flipCard()"
+     >
+  <h4 nz-typography style="text-align: center"> {{recipe.name}}</h4>
+  <ul>
+    <li *ngFor="let ing of recipe.ingredients" r>{{ing.amount}}{{ing.unit}} {{ing.name}}</li>
+  </ul>
 </div>
 
 

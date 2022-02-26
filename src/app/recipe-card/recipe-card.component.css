@@ -1,0 +1,26 @@
+.recipe-card-container-front {
+  min-height: 20vh;
+  border-radius: 12px;
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.5)
+  ), url("https://media.istockphoto.com/photos/foods-high-in-zinc-picture-id1289940519");
+  background-blend-mode: darken;
+  text-align: center;
+
+}
+.recipe-name{
+  position: absolute;
+  bottom: 1vh;
+  left: 5vw;
+  color: white;
+}
+
+.recipe-card-container-back {
+  min-height: 20vh;
+  border-radius: 12px;
+  border: solid;
+}
+
+
+

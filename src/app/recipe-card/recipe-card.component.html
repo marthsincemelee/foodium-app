@@ -23,7 +23,7 @@
   </nz-card>
 
   <ng-template #extraTemplate>
-    <i nz-icon nzType="star" nzTheme="outline" [nzTheme]="'twotone'" [nzTwotoneColor]="'#e8d85e'"></i>
+    <i nz-icon nzType="star" nzTheme="outline" [nzTheme]="'twotone'" [nzTwotoneColor]="this.recipe.favourite ? '#e8d85e' : '#808080'" (click)="changeFavouriteStateForRecipe()"></i>
   </ng-template>
 </div>
 

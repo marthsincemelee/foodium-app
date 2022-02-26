@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Recipe} from "../models/Recipe";
 import {Ingredient} from "../models/Ingredient";
-import {UnitType} from "../models/UnitType";
 import {RecipeService} from "../services/recipe.service";
 
 @Component({
@@ -23,4 +22,13 @@ export class RecipeCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  changeFavouriteStateForRecipe() {
+    if(this.recipe.favourite){
+      this.recipeService.removeRecipeFromUser(this.recipe);
+      this.recipe.favourite = false;
+    } else {
+      this.recipeService.addRecipeToUser(this.recipe);
+      this.recipe.favourite = true;
+    }
+  }
 }

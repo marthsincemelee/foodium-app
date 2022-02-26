@@ -15,8 +15,7 @@ export class UserService {
   dataLoaded: boolean;
   loginForm!: FormGroup;
   user: User;
-
-
+  
   constructor(private client: HttpClient, private router: Router, private authService: AuthService) {
     this.dataLoaded = false;
     this.isLoading = false;
@@ -69,7 +68,7 @@ export class UserService {
   }
 
   retrieveUser(userId: string) {
-    this.client.get<User>(environment.dataUrl + '/users/' + userId).subscribe({
+    this.client.get<User>(environment.dataUrl + '/users/' + userId, {headers: {Authorization: "Bearer " + this.authService.jwt}}).subscribe({
       next: data => this.user = data,
       error: err => {
         console.log("Userdaten können nicht geladen werden");

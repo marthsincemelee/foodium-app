@@ -7,6 +7,7 @@ import {RecipeService} from "../services/recipe.service";
   styleUrls: ['./all-recipe-list.component.css']
 })
 export class AllRecipeListComponent implements OnInit {
+  searchText: string = "";
 
   constructor(public recipeService: RecipeService) {
     this.recipeService.getAllRecipes();

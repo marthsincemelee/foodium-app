@@ -1,8 +1,14 @@
 <div *ngIf="recipeService.dataLoaded">
-  <h1>Alle Rezepte</h1>
+
+
 
   <div nz-row [nzGutter]="[16,16]" nzJustify="center">
-    <div nz-col nzXs="24" nzMd="6" nzSpan="3" *ngFor="let recipe of this.recipeService.allRecipes">
+    <div nz-col nzXs="24">
+      <input type="text" class="form-control" id="search-text" aria-describedby="search-text"
+             [(ngModel)]="searchText" placeholder="Suche nach Rezept ..."
+             autofocus>
+    </div>
+    <div nz-col nzXs="24" nzMd="6" nzSpan="3" *ngFor="let recipe of this.recipeService.allRecipes | recipeFilter: searchText">
       <app-recipe-card [recipe]="recipe"></app-recipe-card>
     </div>
   </div>

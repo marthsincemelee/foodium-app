@@ -5,6 +5,9 @@ export class Recipe {
   recipe_link:string;
   ingredients : Array<Ingredient>;
 
+  id: number | undefined;
+  favourite : boolean | undefined;
+
 
   constructor(name: string, recipe_link: string, ingredients: Array<Ingredient>) {
     this.name = name;

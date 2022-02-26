@@ -24,6 +24,8 @@ export class RecipeService {
       {
         next: data => {
           this.allRecipes = data;
+
+          console.log(this.userService.user.recipes);
           this.dataLoaded = true;
         }
       }

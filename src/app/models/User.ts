@@ -1,4 +1,4 @@
-import {Recipe} from "./Recipe";
+import {Recipe} from "./interfaces/Recipe";
 
 export class User {
   id : number

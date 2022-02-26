@@ -1,6 +1,6 @@
 <div *ngIf="recipeService.dataLoaded">
   <h1>Rezepte für eine Woche</h1>
-  <div nz-row nzJustify="center">
+  <div nz-row nzJustify="center" style="margin: 10px">
     <div nz-col nzXs="18">
       <button nz-button nzBlock (click)="regenerateWeeklyList()" nzType="default"> Neue Woche generieren</button>
     </div>

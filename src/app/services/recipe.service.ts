@@ -35,7 +35,7 @@ export class RecipeService {
     let copyOfRecipes = new Array<Recipe>();
     copyOfRecipes = copyOfRecipes.concat(this.userService.user.recipes);
     let shuffled = copyOfRecipes.sort(() => 0.5 - Math.random());
-    this.favouriteRecipes = shuffled.slice(0, 9);
+    this.favouriteRecipes = shuffled.slice(0, 7);
     this.dataLoaded = true;
   }
 
@@ -48,7 +48,6 @@ export class RecipeService {
         this.addRecipeToUser(this.userService.user).subscribe(
           {
           next: data => {
-            console.log("Updated User", data);
             this.userService.user = data;
           }
         })

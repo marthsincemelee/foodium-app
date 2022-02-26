@@ -1,61 +1,77 @@
-<form nz-form [formGroup]="recipeForm" (submit)="submitRecipe()">
-  <nz-form-item>
-    <h4 nz-typography style="text-align: center">Hier kannst du ein neues Rezept erstellen.</h4>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-control>
-      <input nz-input name="recipeName" formControlName="recipeName" type="text" id="recipeName"
-             placeholder="Name des Rezepts">
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <button type="submit" [disabled]="!(allIngredients.length > 0)" nz-button nzType="primary" nzBlock>Rezept hinzufügen</button>
-  </nz-form-item>
-  <nz-form-item>
-    <label>Möchtest du das Rezept favorisieren ?</label>
-    <nz-switch formControlName="isFavourite"></nz-switch>
-  </nz-form-item>
-</form>
+<div nz-row nzJustify="center">
+  <form nz-form [formGroup]="recipeForm" (submit)="submitRecipe()">
+    <nz-form-item>
+      <h4 nz-typography style="text-align: center">Hier kannst du ein neues Rezept erstellen.</h4>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <input nz-input name="recipeName" formControlName="recipeName" type="text" id="recipeName"
+               placeholder="Name des Rezepts" >
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <input nz-input name="recipeLink" type="text" id="recipeLink" formControlName="recipeLink"
+               placeholder="Link zum Rezept">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <label>Möchtest du das Rezept favorisieren ?</label>
+      <nz-switch formControlName="isFavourite"></nz-switch>
+    </nz-form-item>
+    <nz-form-item>
+      <button type="submit" [disabled]="!(allIngredients.length > 0)" nz-button nzType="primary" nzBlock>Rezept hinzufügen</button>
+    </nz-form-item>
+  </form>
+</div>
+<div nz-row nzJustify="center">
+  <form nz-form [formGroup]="ingredientForm" (submit)="addIngredient()">
+    <nz-divider nzType="horizontal" nzText="Zutaten"></nz-divider>
+    <nz-form-item>
+      <nz-input-group [nzAddOnAfter]="addOnAfterTemplate">
+        <input type="number" nz-input name="ingredientAmount" formControlName="ingredientAmount" placeholder="Menge"/>
+      </nz-input-group>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <input nz-input name="ingredientName" type="text" id="ingredientName" formControlName="ingredientName"
+               placeholder="Zutaten">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <button type="submit" nzBlock nz-button nzType="primary">Zutat hinzufügen</button>
+    </nz-form-item>
+    <div>
+      <ng-template #addOnAfterTemplate>
+        <nz-select formControlName="ingredientUnit">
+          <nz-option nzLabel="g" nzValue="g"></nz-option>
+          <nz-option nzLabel="ml" nzValue="ml"></nz-option>
+          <nz-option nzLabel="tl" nzValue="tl"></nz-option>
+          <nz-option nzLabel="el" nzValue="el"></nz-option>
+          <nz-option nzLabel="l" nzValue="l"></nz-option>
+          <nz-option nzLabel="pck" nzValue="pck"></nz-option>
+          <nz-option nzLabel="stk" nzValue="stk"></nz-option>
+          <nz-option nzLabel="kg" nzValue="kg"></nz-option>
+        </nz-select>
+      </ng-template>
+    </div>
+  </form>
+</div>
+<div *ngIf="allIngredients.length > 0" nz-row nzJustify="center">
+<nz-divider nzType="horizontal"></nz-divider>
+  <ul>
+    <li *ngFor="let ingredient of this.allIngredients">
+      <p nz-typography>{{ingredient.amount}}{{ingredient.unit}} {{ingredient.name}}
+        <button nz-button nzSize="small" nzDanger nzType="primary" nzShape="circle" (click)="removeIngredient(ingredient)">
+          <i nz-icon nzType="close-circle"></i>
+        </button>
+      </p>
+    </li>
+  </ul>
+</div>
 
-<form nz-form [formGroup]="ingredientForm" (submit)="addIngredient()">
-  <nz-divider nzType="horizontal" nzText="Zutaten"></nz-divider>
-  <nz-form-item>
-    <nz-form-control>
-      <input nz-input name="ingredientName" type="text" id="ingredientName" formControlName="ingredientName"
-             placeholder="Zutaten">
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-input-group [nzAddOnAfter]="addOnAfterTemplate">
-      <input type="number" nz-input name="ingredientAmount" formControlName="ingredientAmount" placeholder="Menge"/>
-    </nz-input-group>
-  </nz-form-item>
-  <nz-form-item>
-    <button type="submit" nz-button nzType="primary">Zutat hinzufügen</button>
-  </nz-form-item>
-  <div *ngIf="allIngredients.length > 0">
-    <nz-divider nzType="horizontal"></nz-divider>
-    <ul>
-      <li *ngFor="let ingredient of this.allIngredients">
-        <p nz-typography>{{ingredient.amount}}{{ingredient.unit}} {{ingredient.name}}
-          <button nz-button nzSize="small" nzDanger nzType="primary" nzShape="circle">
-            <i nz-icon nzType="close-circle"></i>
-          </button>
-        </p>
-      </li>
-    </ul>
-  </div>
-  <div>
-    <ng-template #addOnAfterTemplate>
-      <nz-select formControlName="ingredientUnit">
-        <nz-option nzLabel="g" nzValue="g"></nz-option>
-        <nz-option nzLabel="ml" nzValue="ml"></nz-option>
-        <nz-option nzLabel="tl" nzValue="tl"></nz-option>
-        <nz-option nzLabel="el" nzValue="el"></nz-option>
-      </nz-select>
-    </ng-template>
-  </div>
-</form>
+
+
 
 
 

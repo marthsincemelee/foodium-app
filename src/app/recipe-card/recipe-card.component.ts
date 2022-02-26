@@ -15,6 +15,8 @@ export class RecipeCardComponent implements OnInit {
   @Input() recipe: Recipe = new Recipe("No recipe found", "https://www.eggs.ca", new Array<Ingredient>())
   @Input() isStarEnabled: boolean = false;
 
+  ingredientsTitle: string = "Zutaten";
+
   constructor(public recipeService: RecipeService) {
   }
 

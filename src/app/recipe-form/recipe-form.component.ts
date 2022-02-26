@@ -62,7 +62,7 @@ export class RecipeFormComponent implements OnInit {
         if(this.recipeForm.value.isFavourite){
           this.recipeService.addFavouriteRecipeToUser(recipe);
         } else {
-          this.recipeService.addRecipe(recipe);
+          this.recipeService.createRecipe(recipe);
         }
 
         this.recipeForm.reset();

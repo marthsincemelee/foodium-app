@@ -18,14 +18,20 @@ export class RecipeService {
 
   getAllRecipes() {
     this.dataLoaded = false;
-    this.allRecipes = [];
+    this.allRecipes = new Array<Recipe>();
 
     this.getRecipes().subscribe(
       {
         next: data => {
-          this.allRecipes = data;
+          this.allRecipes = data as Array<Recipe>;
 
-          console.log(this.userService.user.recipes);
+          this.allRecipes.forEach(recipe => {
+            if(this.userService.user.recipes.find(r => r.id == recipe.id)){
+              recipe.favourite = true;
+            }
+          })
+
+          console.log(this.allRecipes)
           this.dataLoaded = true;
         }
       }
@@ -42,22 +48,14 @@ export class RecipeService {
   }
 
   addFavouriteRecipeToUser(recipe: Recipe){
-
     this.addRecipeToDatabase(recipe).subscribe({
       next: data => {
-        this.userService.addRecipeToUser(data);
-
-        this.addRecipeToUser(this.userService.user).subscribe(
-          {
-          next: data => {
-            this.userService.user = data;
-          }
-        })
+        this.addRecipeToUser(data);
       }
     })
   }
 
-  addRecipe(recipe : Recipe){
+  public createRecipe(recipe : Recipe){
     this.addRecipeToDatabase(recipe).subscribe({
       next: data => {
         console.log("Added Recipe to database", data);
@@ -65,12 +63,16 @@ export class RecipeService {
     })
   }
 
-  public getRecipes() {
-    return this.client.get<Array<Recipe>>(environment.dataUrl + '/recipes',{headers: {Authorization: "Bearer " + this.authService.jwt}});
+  public addRecipeToUser(recipe: Recipe){
+    this.userService.addRecipeToUser(recipe);
   }
 
-  public addRecipeToUser(user: User){
-    return this.client.put<User>(environment.dataUrl + '/users/' + user.id, user, {headers: {Authorization: "Bearer " + this.authService.jwt}});
+  public removeRecipeFromUser(recipe: Recipe){
+    this.userService.removeRecipeFromUser(recipe);
+  }
+
+  public getRecipes() {
+    return this.client.get<Array<Recipe>>(environment.dataUrl + '/recipes',{headers: {Authorization: "Bearer " + this.authService.jwt}});
   }
 
   public addRecipeToDatabase(recipe: Recipe) {

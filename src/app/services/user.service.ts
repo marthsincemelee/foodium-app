@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {User} from "../models/user";
 import {Recipe} from "../models/Recipe";
 import {AuthService} from "./auth.service";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,8 @@ export class UserService {
   dataLoaded: boolean;
   loginForm!: FormGroup;
   user: User;
-  
-  constructor(private client: HttpClient, private router: Router, private authService: AuthService) {
+
+  constructor(private client: HttpClient, private router: Router, private authService: AuthService, private message: NzMessageService) {
     this.dataLoaded = false;
     this.isLoading = false;
     this.user = new User(0, "", "", "", false,false, new Array<Recipe>())
@@ -31,6 +32,7 @@ export class UserService {
           this.authService.setJWTTokenCookie(data.body.jwt);
           this.authService.setUserID(data.body.user.id);
           this.user = data.body.user;
+          this.message.success("Du wurdest erfolgreich eingeloggt!")
         }
       }
     )
@@ -51,8 +53,34 @@ export class UserService {
     }
   }
 
-  addRecipeToUser(recipe: Recipe){
+  public addRecipeToUser(recipe: Recipe){
     this.user.recipes.push(recipe);
+    this.message.info("Rezept wurde lokal dem User hinzugefügt!");
+    this.updateUser();
+  }
+
+  public removeRecipeFromUser(recipe: Recipe){
+    if(!this.user.recipes.find(r => recipe.id == r.id)){
+      return;
+    }
+
+    recipe.favourite = false;
+    let index = this.user.recipes.indexOf(recipe);
+    this.user.recipes.splice(index, 1);
+    this.message.info("Rezept wurde lokal dem User entfernt!");
+    this.updateUser();
+  }
+
+  public updateUser(){
+    return this.client.put<User>(environment.dataUrl + '/users/' + this.user.id, this.user, {headers: {Authorization: "Bearer " + this.authService.jwt}})
+      .subscribe({
+        next: data => {
+          this.user = data
+          this.message.success("Der Benutzer wurde erfolgreich geupdatet!");
+        },
+        error: err => this.message.error("Es gab einen Fehler beim updaten des Benutzers! \n" + err),
+        }
+      );
   }
 
   public requestAuthentication(username: string, password: string){
@@ -68,8 +96,11 @@ export class UserService {
   }
 
   retrieveUser(userId: string) {
+    this.dataLoaded = false;
     this.client.get<User>(environment.dataUrl + '/users/' + userId, {headers: {Authorization: "Bearer " + this.authService.jwt}}).subscribe({
-      next: data => this.user = data,
+      next: data => {
+        this.user = data
+      },
       error: err => {
         console.log("Userdaten können nicht geladen werden");
         this.router.navigate(["login"]);

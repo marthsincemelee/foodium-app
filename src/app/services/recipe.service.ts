@@ -45,6 +45,13 @@ export class RecipeService {
     copyOfRecipes = copyOfRecipes.concat(this.userService.user.recipes);
     let shuffled = copyOfRecipes.sort(() => 0.5 - Math.random());
     this.weeklyRecipes = shuffled.slice(0, 7);
+
+    this.weeklyRecipes.forEach(recipe => {
+      if(this.userService.user.recipes.find(r => r.id == recipe.id)){
+        recipe.favourite = true;
+      }
+    })
+
     this.dataLoaded = true;
   }
 

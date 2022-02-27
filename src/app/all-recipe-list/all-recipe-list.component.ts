@@ -20,17 +20,4 @@ export class AllRecipeListComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  clickSwitch() {
-    if(this.recipeService.dataLoaded){
-      if(this.isFavouriteChecked){
-        this.recipeList = new Array<Recipe>();
-        this.recipeList = this.recipeService.allRecipes;
-      } else {
-        this.recipeList = new Array<Recipe>();
-        this.recipeList = this.recipeService.weeklyRecipes;
-      }
-      this.isFavouriteChecked = !this.isFavouriteChecked;
-    }
-  }
 }

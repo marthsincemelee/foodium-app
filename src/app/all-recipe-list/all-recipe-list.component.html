@@ -9,8 +9,6 @@
     <div nz-col nzXs="12">
       <nz-switch
         [(ngModel)]="isFavouriteChecked"
-        [nzControl]="true"
-        (click)="clickSwitch()"
         [nzLoading]="!this.recipeService.dataLoaded"
         [nzCheckedChildren]="checkedTemplate"
         [nzUnCheckedChildren]="unCheckedTemplate"
@@ -21,8 +19,8 @@
   </div>
 
   <div nz-row [nzGutter]="[16,16]" nzJustify="center">
-      <div nz-col nzXs="24" nzMd="6" nzSpan="3" *ngFor="let recipe of this.recipeService.allRecipes | searchFilter: searchText: isFavouriteChecked">
-        <app-recipe-card [recipe]="recipe"></app-recipe-card>
+      <div nz-col nzXs="24" nzMd="6" nzSpan="3" *ngFor="let recipe of this.recipeService.allRecipes | searchFilter: searchText | favouriteFilter: isFavouriteChecked">
+          <app-recipe-card [recipe]="recipe"></app-recipe-card>
       </div>
   </div>
   <nz-empty *ngIf="!recipeService.dataLoaded"></nz-empty>

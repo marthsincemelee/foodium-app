@@ -3,7 +3,6 @@ import {Recipe} from "../models/Recipe";
 import {UserService} from "./user.service";
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import {User} from "../models/user";
 import {AuthService} from "./auth.service";
 
 @Injectable({
@@ -11,7 +10,7 @@ import {AuthService} from "./auth.service";
 })
 export class RecipeService {
 
-  favouriteRecipes : Array<Recipe>;
+  weeklyRecipes: Array<Recipe>
   allRecipes : Array<Recipe>;
   dataLoaded: boolean;
 
@@ -19,17 +18,11 @@ export class RecipeService {
   getAllRecipes() {
     this.dataLoaded = false;
     this.allRecipes = new Array<Recipe>();
-    this.favouriteRecipes = new Array<Recipe>();
     this.getRecipes().subscribe(
       {
         next: data => {
           this.allRecipes = data as Array<Recipe>;
-          this.allRecipes.forEach(recipe => {
-            if(this.userService.user.recipes.find(r => r.id == recipe.id)){
-              recipe.favourite = true;
-              this.favouriteRecipes.push(recipe);
-            }
-          })
+          this.mapRecipesOnFavouriteRecipes();
           console.log(this.allRecipes)
           this.dataLoaded = true;
         }
@@ -37,13 +30,21 @@ export class RecipeService {
     )
   }
 
+  mapRecipesOnFavouriteRecipes() {
+    this.allRecipes.forEach(recipe => {
+      if(this.userService.user.recipes.find(r => r.id == recipe.id)){
+        recipe.favourite = true;
+      }
+    })
+  }
+
   generateWeeklyRecipes() {
     this.dataLoaded = false;
-    this.favouriteRecipes = new Array<Recipe>();
+    this.weeklyRecipes = new Array<Recipe>();
     let copyOfRecipes = new Array<Recipe>();
     copyOfRecipes = copyOfRecipes.concat(this.userService.user.recipes);
     let shuffled = copyOfRecipes.sort(() => 0.5 - Math.random());
-    this.favouriteRecipes = shuffled.slice(0, 7);
+    this.weeklyRecipes = shuffled.slice(0, 7);
     this.dataLoaded = true;
   }
 
@@ -65,10 +66,12 @@ export class RecipeService {
 
   public addRecipeToUser(recipe: Recipe){
     this.userService.addRecipeToUser(recipe);
+    this.mapRecipesOnFavouriteRecipes();
   }
 
   public removeRecipeFromUser(recipe: Recipe){
     this.userService.removeRecipeFromUser(recipe);
+    this.mapRecipesOnFavouriteRecipes();
   }
 
   public getRecipes() {
@@ -81,7 +84,7 @@ export class RecipeService {
 
   constructor(private client: HttpClient, private userService : UserService, private authService: AuthService) {
     this.dataLoaded = false;
-    this.favouriteRecipes = new Array<Recipe>();
+    this.weeklyRecipes = new Array<Recipe>();
     this.allRecipes = new Array<Recipe>();
   }
 }

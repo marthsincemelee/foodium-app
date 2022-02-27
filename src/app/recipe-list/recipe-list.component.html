@@ -7,7 +7,7 @@
   </div>
 
 <div nz-row [nzGutter]="[16,16]" nzJustify="center">
-  <div nz-col nzXs="24" nzMd="6" nzSpan="3" *ngFor="let recipe of this.recipeService.favouriteRecipes">
+  <div nz-col nzXs="24" nzMd="6" nzSpan="3" *ngFor="let recipe of this.recipeService.weeklyRecipes">
     <app-recipe-card [recipe]="recipe"></app-recipe-card>
   </div>
 </div>

@@ -28,7 +28,7 @@ export class AllRecipeListComponent implements OnInit {
         this.recipeList = this.recipeService.allRecipes;
       } else {
         this.recipeList = new Array<Recipe>();
-        this.recipeList = this.recipeService.favouriteRecipes;
+        this.recipeList = this.recipeService.weeklyRecipes;
       }
       this.isFavouriteChecked = !this.isFavouriteChecked;
     }

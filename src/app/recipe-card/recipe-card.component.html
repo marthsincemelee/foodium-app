@@ -1,8 +1,8 @@
 <div *ngIf="recipeService.dataLoaded">
   <nz-card nzTitle="{{recipe.name}}" [nzExtra]="extraTemplate">
-    <span nz-typography>
+    <span nz-typography *ngIf="recipe.link">
       Link zum Rezept:
-        <a href="{{recipe.recipe_link}}" target="_blank">
+        <a href="{{recipe.link}}" target="_blank">
           Click here
           <Link />
         </a>

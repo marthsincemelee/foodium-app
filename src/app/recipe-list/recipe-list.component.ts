@@ -29,4 +29,44 @@ export class RecipeListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  rerollFromFavourite(recipeToReroll: Recipe) {
+    let index = this.weeklyRecipes.indexOf(recipeToReroll);
+    this.weeklyRecipes.splice(index, 1);
+
+    let replacementRecipe: Recipe;
+
+    replacementRecipe = this.recipeService.allRecipes
+      .filter(recipe => recipe.favourite)
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 1)[0];
+
+    if(this.weeklyRecipes.includes(replacementRecipe)){
+      while(this.weeklyRecipes.includes(replacementRecipe)){
+        replacementRecipe = this.recipeService.allRecipes
+          .filter(recipe => recipe != recipeToReroll)
+          .filter(recipe => !this.weeklyRecipes.includes(recipe))
+          .filter(recipe => recipe.favourite)
+          .sort(() => 0.5 - Math.random())
+          .slice(0, 1)[0];
+      }
+    }
+    // @ts-ignore
+    this.weeklyRecipes.splice(index, 0, replacementRecipe);
+  }
+
+  rerollFromAll(recipeToReroll: Recipe) {
+    let index = this.weeklyRecipes.indexOf(recipeToReroll);
+    this.weeklyRecipes.splice(index, 1);
+
+    let replacementRecipe: Recipe;
+
+    replacementRecipe = this.recipeService.allRecipes
+      .filter(recipe => recipe != recipeToReroll)
+      .filter(recipe => !this.weeklyRecipes.includes(recipe))
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 1)[0];
+
+    // @ts-ignore
+    this.weeklyRecipes.splice(index, 0, replacementRecipe);
+  }
 }

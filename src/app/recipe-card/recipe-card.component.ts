@@ -9,6 +9,7 @@ import {RecipeService} from "../services/recipe.service";
   styleUrls: ['./recipe-card.component.css']
 })
 export class RecipeCardComponent implements OnInit {
+
   //ToDo: Ingredienttype mit Tags farbig markieren
   //ToDo: Ingredients nach Type sortieren
   @Input() recipe: Recipe = new Recipe("No recipe found", "https://www.eggs.ca", new Array<Ingredient>())

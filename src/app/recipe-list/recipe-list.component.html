@@ -2,12 +2,12 @@
   <h1>Rezepte für eine Woche</h1>
   <div nz-row nzJustify="center" style="margin: 10px">
     <div nz-col nzXs="18">
-      <button nz-button nzBlock (click)="regenerateWeeklyList()" nzType="default"> Neue Woche generieren</button>
+      <button nz-button nzBlock (click)="this.generateWeeklyRecipes()" nzType="default"> Neue Woche generieren</button>
     </div>
   </div>
 
 <div nz-row [nzGutter]="[16,16]" nzJustify="center">
-  <div nz-col nzXs="24" nzMd="6" nzSpan="3" *ngFor="let recipe of this.recipeService.weeklyRecipes">
+  <div nz-col nzXs="24" nzMd="6" nzSpan="3" *ngFor="let recipe of this.weeklyRecipes">
     <app-recipe-card [recipe]="recipe"></app-recipe-card>
   </div>
 </div>

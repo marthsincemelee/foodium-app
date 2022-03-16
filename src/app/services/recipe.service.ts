@@ -10,10 +10,8 @@ import {AuthService} from "./auth.service";
 })
 export class RecipeService {
 
-  weeklyRecipes: Array<Recipe>
   allRecipes : Array<Recipe>;
   dataLoaded: boolean;
-
 
   getAllRecipes() {
     this.dataLoaded = false;
@@ -36,23 +34,6 @@ export class RecipeService {
         recipe.favourite = true;
       }
     })
-  }
-
-  generateWeeklyRecipes() {
-    this.dataLoaded = false;
-    this.weeklyRecipes = new Array<Recipe>();
-    let copyOfRecipes = new Array<Recipe>();
-    copyOfRecipes = copyOfRecipes.concat(this.userService.user.recipes);
-    let shuffled = copyOfRecipes.sort(() => 0.5 - Math.random());
-    this.weeklyRecipes = shuffled.slice(0, 7);
-
-    this.weeklyRecipes.forEach(recipe => {
-      if(this.userService.user.recipes.find(r => r.id == recipe.id)){
-        recipe.favourite = true;
-      }
-    })
-
-    this.dataLoaded = true;
   }
 
   addFavouriteRecipeToUser(recipe: Recipe){
@@ -91,7 +72,6 @@ export class RecipeService {
 
   constructor(private client: HttpClient, private userService : UserService, private authService: AuthService) {
     this.dataLoaded = false;
-    this.weeklyRecipes = new Array<Recipe>();
     this.allRecipes = new Array<Recipe>();
   }
 }
